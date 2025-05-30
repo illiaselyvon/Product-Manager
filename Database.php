@@ -24,14 +24,18 @@ class Database {
     private function createProductsTable(PDO $pdo): void
     {
     $sql = "
-        CREATE TABLE IF NOT EXISTS products (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            unit_sold INT DEFAULT 0,
-            in_stock INT DEFAULT 0,
-            expire_date DATE NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
+       CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    category VARCHAR(100),
+    image VARCHAR(255),
+    in_stock INT DEFAULT 0,
+    unit_sold INT DEFAULT 0,
+    expire_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
     ";
 
     $stmt = $pdo->prepare($sql);

@@ -1,59 +1,24 @@
 <?php
 
-namespace App\Models;
 
-class Product
-{
-    private int $id;
+class Product {
     private string $name;
     private string $description;
-    private float $price;
+    private string $category;
+    private string $expireDate;
+    private int $stock;
 
-    public function __construct(string $name, string $description, float $price, int $id = 0)
-    {
+    public function __construct(string $name, string $description, string $category, string $expireDate, int $stock) {
         $this->name = $name;
         $this->description = $description;
-        $this->price = $price;
-        $this->id = $id;
+        $this->category = $category;
+        $this->expireDate = $expireDate;
+        $this->stock = $stock;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    public function getPrice(): float
-    {
-        return $this->price;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
+    public function getName(): string { return $this->name; }
+    public function getDescription(): string { return $this->description; }
+    public function getCategory(): string { return $this->category; }
+    public function getExpireDate(): string { return $this->expireDate; }
+    public function getStock(): int { return $this->stock; }
 }
