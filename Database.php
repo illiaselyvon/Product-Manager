@@ -2,7 +2,7 @@
 
 class Database {
     private $host = 'localhost';
-    private $dbname = 'eqwewq';
+    private $dbname = 'php_products';
     private $user = 'root';
     private $pass = '';
 
@@ -29,9 +29,7 @@ class Database {
     name VARCHAR(100) NOT NULL,
     description TEXT,
     category VARCHAR(100),
-    image VARCHAR(255),
     in_stock INT DEFAULT 0,
-    unit_sold INT DEFAULT 0,
     expire_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

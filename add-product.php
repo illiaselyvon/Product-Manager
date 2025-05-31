@@ -7,41 +7,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $category = trim($_POST['category'] ?? '');
-    $price = floatval($_POST['price'] ?? 0);
-    $expireDate = trim($_POST['expire_date'] ?? '');
-    $stock = intval($_POST['stock'] ?? 0);
+    $stockRaw = $_POST['stock'] ?? null;
+    $stock = is_numeric($stockRaw) ? (int)$stockRaw : null;
 
-    $imageName = null;
-    if (!empty($_FILES['image']['name'])) {
-        $uploadDir = 'uploads/';
-        $imageName = basename($_FILES['image']['name']);
-        $uploadPath = $uploadDir . $imageName;
+    $product = new Product($name, $description, $category, $stock);
+    $database = new Database();
+    $manager = new ProductManager($database);
 
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
-
-        if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
-            echo "<script>alert('Не удалось загрузить изображение');</script>";
-            $imageName = null;
-        }
-    }
-
-    if ($name && $description && $category && $price > 0 && $expireDate && $stock >= 0) {
-        $product = new Product($name, $description, $category, $price, $imageName, $stock, $expireDate);
-        $manager = new ProductManager();
-
-        if ($manager->create($product)) {
-            header("Location: products.php?success=1");
-            exit;
-        } else {
-            echo "<script>alert('Ошибка при добавлении товара');</script>";
-        }
+    if ($manager->create($product)) {
+        header("Location: products.php");
+        exit;
     } else {
-        echo "<script>alert('Пожалуйста, заполните все поля корректно');</script>";
+        echo "<script>alert('Ошибка при добавлении товара');</script>";
     }
 }
 ?>
+
+
 
 <?php include 'header.php'; ?>
 
@@ -56,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="row tm-edit-product-row">
           <div class="col-xl-6 col-lg-6 col-md-12">
-            <form action="add_product.php" method="POST" enctype="multipart/form-data" class="tm-edit-product-form">
+            <form action="add-product.php" method="POST" class="tm-edit-product-form">
               <div class="form-group mb-3">
                 <label for="name">Product Name</label>
                 <input id="name" name="name" type="text" class="form-control validate" required />
@@ -94,20 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
           </div>
-
-          <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-            <div class="tm-product-img-dummy mx-auto">
-              <i class="fas fa-cloud-upload-alt tm-upload-icon"
-                 onclick="document.getElementById('fileInput').click();"></i>
-            </div>
-            <div class="custom-file mt-3 mb-3">
-              <input id="fileInput" name="image" type="file" style="display:none;" />
-              <input type="button" class="btn btn-primary btn-block mx-auto"
-                     value="UPLOAD PRODUCT IMAGE"
-                     onclick="document.getElementById('fileInput').click();" />
-            </div>
-          </div>
-
           <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
           </div>

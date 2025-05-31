@@ -8,7 +8,7 @@ class Product {
     private string $expireDate;
     private int $stock;
 
-    public function __construct(string $name, string $description, string $category, string $expireDate, int $stock) {
+    public function __construct(string $name, string $description, string $category, int $stock) {
         $this->name = $name;
         $this->description = $description;
         $this->category = $category;
@@ -19,6 +19,5 @@ class Product {
     public function getName(): string { return $this->name; }
     public function getDescription(): string { return $this->description; }
     public function getCategory(): string { return $this->category; }
-    public function getExpireDate(): string { return $this->expireDate; }
     public function getStock(): int { return $this->stock; }
 }
