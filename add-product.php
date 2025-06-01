@@ -7,10 +7,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $category = trim($_POST['category'] ?? '');
+    $expireDate = trim($_POST['expire_date'] ?? '');
+    $priceRaw = $_POST['price'] ?? null;
     $stockRaw = $_POST['stock'] ?? null;
-    $stock = is_numeric($stockRaw) ? (int)$stockRaw : null;
 
-    $product = new Product($name, $description, $category, $stock);
+    if (!is_numeric($priceRaw) || !is_numeric($stockRaw)) {
+        die("Цена и количество должны быть числами.");
+    }
+
+    $price = (float)$priceRaw;
+    $stock = (int)$stockRaw;
+
+    $product = new Product($name, $description, $category, $price, $expireDate, $stock);
     $database = new Database();
     $manager = new ProductManager($database);
 
@@ -22,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
 
 <?php include 'header.php'; ?>
 
@@ -51,35 +57,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               <div class="form-group mb-3">
                 <label for="category">Category</label>
-                <select name="category" class="custom-select tm-select-accounts" id="category">
+                <select name="category" class="custom-select tm-select-accounts" id="category" required>
                   <option selected disabled>Select category</option>
                   <option value="New Arrival">New Arrival</option>
                   <option value="Most Popular">Most Popular</option>
                   <option value="Trending">Trending</option>
                 </select>
               </div>
+                 <div class="form-group mb-3">
+    <label for="price">Price</label>
+    <input id="price" name="price" type="number" step="0.01" min="0" class="form-control validate" required />
+</div>
+              <div class="form-group mb-3">
+                <label for="expire_date">Expire Date</label>
+                <input id="expire_date" name="expire_date" type="date" class="form-control validate" />
+              </div>
 
               <div class="form-group mb-3">
-                <label for="price">Price</label>
-                <input id="price" name="price" type="text" class="form-control validate" required />
+                <label for="stock">Units In Stock</label>
+                <input id="stock" name="stock" type="number" class="form-control validate" required />
               </div>
 
-              <div class="row">
-                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="expire_date">Expire Date</label>
-                  <input id="expire_date" name="expire_date" type="text" class="form-control validate" />
-                </div>
-
-                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Units In Stock</label>
-                  <input id="stock" name="stock" type="text" class="form-control validate" required />
-                </div>
+              <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
               </div>
+            </form>
           </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
-          </div>
-        </form>
         </div>
       </div>
     </div>
