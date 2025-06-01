@@ -25,4 +25,9 @@ class ProductManager {
             'created_at' => date('Y-m-d H:i:s')
         ]);
     }
+
+    public function read(): array {
+        $stmt = $this->db->query("SELECT * FROM products ORDER BY created_at DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
