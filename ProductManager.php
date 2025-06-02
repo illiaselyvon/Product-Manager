@@ -36,6 +36,7 @@ class ProductManager {
         return $stmt->execute(['id' => $id]);
     }
 
+// Update method
     
 public function update(Product $product, int $id): bool {
     $stmt = $this->db->prepare("
@@ -66,3 +67,4 @@ public function update(Product $product, int $id): bool {
     return $product ?: null;
     }
     }
+    
