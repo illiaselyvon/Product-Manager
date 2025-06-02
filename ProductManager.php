@@ -30,4 +30,39 @@ class ProductManager {
         $stmt = $this->db->query("SELECT * FROM products ORDER BY created_at DESC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-}
+
+    public function delete(int $id): bool {
+        $stmt = $this->db->prepare("DELETE FROM products WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    
+public function update(Product $product, int $id): bool {
+    $stmt = $this->db->prepare("
+        UPDATE products 
+        SET name = :name,
+            description = :description,
+            category = :category,
+            price = :price,
+            in_stock = :in_stock,
+            expire_date = :expire_date
+        WHERE id = :id
+    ");
+
+    return $stmt->execute([
+        'name' => $product->getName(),
+        'description' => $product->getDescription(),
+        'category' => $product->getCategory(),
+        'price' => $product->getPrice(),
+        'in_stock' => $product->getStock(),
+        'expire_date' => $product->getExpireDate(),
+        'id' => $id
+    ]);
+     }
+     public function findById(int $id): ?array {
+    $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+    $stmt->execute(['id' => $id]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $product ?: null;
+    }
+    }
