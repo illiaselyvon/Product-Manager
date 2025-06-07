@@ -51,11 +51,6 @@
                                 <i class="fas fa-shopping-cart"></i> Products
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.php">
-                                <i class="far fa-user"></i> Accounts
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,9 +66,9 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link d-block" href="login.php
+                            <a class="nav-link d-block" href="register.php
                             ">
-                                Admin, <b>Logout</b>
+                                Register </b>
                             </a>
                         </li>
                     </ul>
