@@ -1,7 +1,7 @@
 <?php
-require_once 'Database.php';
-require_once 'Product.php';
-require_once 'ProductManager.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../classes/Product.php';
+require_once __DIR__ . '/../classes/ProductManager.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include 'header.php'; ?>
+<?php include __DIR__ . '/../root/includes/header.php'; ?>
 
 <div class="container tm-mt-big tm-mb-big">
   <div class="row">
@@ -64,10 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   <option value="Trending">Trending</option>
                 </select>
               </div>
-                 <div class="form-group mb-3">
-    <label for="price">Price</label>
-    <input id="price" name="price" type="number" step="0.01" min="0" class="form-control validate" required />
-</div>
+
+              <div class="form-group mb-3">
+                <label for="price">Price</label>
+                <input id="price" name="price" type="number" step="0.01" min="0" class="form-control validate" required />
+              </div>
+
               <div class="form-group mb-3">
                 <label for="expire_date">Expire Date</label>
                 <input id="expire_date" name="expire_date" type="date" class="form-control validate" />
@@ -89,4 +91,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../root/includes/footer.php'; ?>

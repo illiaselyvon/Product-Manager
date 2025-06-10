@@ -1,6 +1,6 @@
 <?php
-require_once 'Database.php';
-require_once 'ProductManager.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../classes/ProductManager.php';
 
 $database = new Database();
 $manager = new ProductManager($database);
@@ -17,7 +17,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 $products = $manager->read();
 ?>
 
-<?php include 'header.php'; ?>
+<?php include __DIR__ . '/../root/includes/header.php'; ?>
 
 <div class="container mt-5">
   <div class="row tm-content-row">
@@ -70,4 +70,4 @@ $products = $manager->read();
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../root/includes/footer.php'; ?>

@@ -1,7 +1,7 @@
 <?php
-require_once 'Database.php';
-require_once 'User.php';
-require_once 'UserManager.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../classes/User.php';
+require_once __DIR__ . '/../classes/UserManager.php';
 
 $db = new Database();
 $userManager = new UserManager($db->getConnection());
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = new User($username, $hashedPassword);
 
         if ($userManager->register($user)) {
-            header("Location: index.php");
+            header("Location: /Product-Manager/index.php");
             exit;
         } else {
             $message = "❗ Registration failed.";
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include 'header.php'; ?>
+<?php include __DIR__ . '/includes/header.php'; ?>
 
 <div class="container tm-mt-big tm-mb-big">
   <div class="row">
@@ -75,4 +75,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
-require_once 'Database.php';
-require_once 'Product.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/Product.php';
 
 class ProductManager {
     private PDO $db;
@@ -36,35 +36,33 @@ class ProductManager {
         return $stmt->execute(['id' => $id]);
     }
 
-// Update method
-    
-public function update(Product $product, int $id): bool {
-    $stmt = $this->db->prepare("
-        UPDATE products 
-        SET name = :name,
-            description = :description,
-            category = :category,
-            price = :price,
-            in_stock = :in_stock,
-            expire_date = :expire_date
-        WHERE id = :id
-    ");
+    public function update(Product $product, int $id): bool {
+        $stmt = $this->db->prepare("
+            UPDATE products 
+            SET name = :name,
+                description = :description,
+                category = :category,
+                price = :price,
+                in_stock = :in_stock,
+                expire_date = :expire_date
+            WHERE id = :id
+        ");
 
-    return $stmt->execute([
-        'name' => $product->getName(),
-        'description' => $product->getDescription(),
-        'category' => $product->getCategory(),
-        'price' => $product->getPrice(),
-        'in_stock' => $product->getStock(),
-        'expire_date' => $product->getExpireDate(),
-        'id' => $id
-    ]);
-     }
-     public function findById(int $id): ?array {
-    $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    $product = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $product ?: null;
+        return $stmt->execute([
+            'name' => $product->getName(),
+            'description' => $product->getDescription(),
+            'category' => $product->getCategory(),
+            'price' => $product->getPrice(),
+            'in_stock' => $product->getStock(),
+            'expire_date' => $product->getExpireDate(),
+            'id' => $id
+        ]);
     }
+
+    public function findById(int $id): ?array {
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ?: null;
     }
-    
+}

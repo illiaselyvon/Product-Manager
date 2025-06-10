@@ -1,11 +1,10 @@
 <?php
-require_once 'Database.php';
-require_once 'Product.php';
-require_once 'ProductManager.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../classes/Product.php';
+require_once __DIR__ . '/../classes/ProductManager.php';
 
 $database = new Database();
 $manager = new ProductManager($database);
-
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("Wrong ID.");
@@ -17,7 +16,6 @@ $productData = $manager->findById($id);
 if (!$productData) {
     die("Product not found.");
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
@@ -41,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include 'header.php'; ?>
+<?php include __DIR__ . '/../root/includes/header.php'; ?>
 
 <div class="container tm-mt-big tm-mb-big">
   <div class="row">
@@ -103,4 +101,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../root/includes/footer.php'; ?>

@@ -1,9 +1,20 @@
+<?php
+session_start();
 
-<?php include 'header.php';
+require_once __DIR__ . '/config/Database.php';
+$db = new Database();
 
-    require_once  'Database.php';
-    $db = new Database();
+$success = $_SESSION['registration_success'] ?? '';
+unset($_SESSION['registration_success']);
+
+include __DIR__ . '/root/includes/header.php';
 ?>
+
+<?php if ($success): ?>
+    <div class="alert alert-success mt-4" style="color: #66ff99; font-weight: bold;">
+        <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
 
 <div class="row">
     <div class="col">
@@ -33,16 +44,6 @@
             </div>                        
         </div>
     </div>
-  
-    
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Вставь здесь содержимое строк заказов из оригинального HTML -->
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/root/includes/footer.php'; ?>

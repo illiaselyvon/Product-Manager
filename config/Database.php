@@ -50,17 +50,7 @@ class Database {
         $pdo->prepare($sql)->execute();
     }
 
-    public function addProduct(string $name, int $unitSold, int $inStock, string $expireDate): bool {
-        $sql = "INSERT INTO products (name, unit_sold, in_stock, expire_date) VALUES (:name, :unit_sold, :in_stock, :expire_date)";
-        $stmt = $this->pdo->prepare($sql);
-
-        return $stmt->execute([
-            ':name' => $name,
-            ':unit_sold' => $unitSold,
-            ':in_stock' => $inStock,
-            ':expire_date' => $expireDate
-        ]);
-    }
+   
 
     public function getConnection(): PDO {
         return $this->pdo;
